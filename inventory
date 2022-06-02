@@ -1,0 +1,10 @@
+[milkyway]
+pimercury.home
+pivenus
+
+[k3s-master]
+pimercury.home
+
+
+[k3s-node]
+pivenus
