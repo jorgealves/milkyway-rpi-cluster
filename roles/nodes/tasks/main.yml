@@ -1,0 +1,13 @@
+---
+- name: Validate K3s running
+  register: agent_running
+  command: systemctl is-active --quiet k3s.service 
+  ignore_errors: true
+- name: Get Server Token
+  set_fact:
+    node_token: "{{ lookup('file', playbook_dir + '/node-token') }}"
+- name: Install K3s agent
+  when: agent_running.rc != 0
+  ansible.builtin.shell: curl -sfL https://get.k3s.io | sh -s - agent --token {{ node_token }} --server https://piearth:6443
+  notify:
+    - 'Reboot'

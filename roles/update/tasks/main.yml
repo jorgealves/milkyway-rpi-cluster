@@ -1,0 +1,13 @@
+---
+- name: update OS
+  ansible.builtin.apt:
+    name: "*"
+    state: latest
+    
+- name: update Cache
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: autoremove
+  ansible.builtin.apt:
+    autoremove: true

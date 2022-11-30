@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  gather_facts: true
+  roles:
+    - update
+    - prereq
+- hosts: master
+  become: true
+  roles: 
+    - master
+- hosts: nodes
+  become: true
+  roles: 
+    - nodes

@@ -1,0 +1,25 @@
+--- 
+- name: Validate K3s running
+  register: server_running
+  command: systemctl is-active --quiet k3s.service 
+  ignore_errors: true
+
+- name: Install K3s server
+  when: server_running.rc != 0
+  ansible.builtin.shell: curl -sfL https://get.k3s.io | sh -s - server --cluster-init --disable servicelb --disable traefik
+  notify:
+    - 'Reboot'
+
+- name: Fetch kubeconfig
+  when: server_running.rc != 0
+  ansible.builtin.fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: ~/.kube/pikube
+    flat: true
+
+- name: Fetch node-token
+  when: server_running.rc != 0
+  ansible.builtin.fetch:
+    src: /var/lib/rancher/k3s/server/node-token
+    dest: ./node-token
+    flat: true
