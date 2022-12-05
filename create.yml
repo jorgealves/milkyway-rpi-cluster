@@ -9,7 +9,14 @@
   become: true
   roles: 
     - master
+- hosts: master-ha
+  become: true
+  roles:
+    - ha
 - hosts: nodes
   become: true
   roles: 
     - nodes
+- hosts: localhost
+  roles:
+    - helm

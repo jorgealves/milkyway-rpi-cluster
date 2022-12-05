@@ -1,0 +1,10 @@
+---
+- name: install frafana
+  delegate_to: localhost
+  become: false
+  kubernetes.core.helm:
+    name: grafana-operator
+    release_namespace: grafana-system
+    create_namespace: true
+    kubeconfig: ~/.kube/pikube
+    chart_ref: grafana/grafana-agent-operator

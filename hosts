@@ -2,8 +2,10 @@
 
 [nodes]
 pimars
-pimercury
-pivenus
+piearth
 
 [master]
-piearth
+pivenus
+
+[master-ha]
+pimercury
